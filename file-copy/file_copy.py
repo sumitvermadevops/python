@@ -1,4 +1,4 @@
-#Search files in a directory and subdirectories for a given file extension
+# Search files in a directory and subdirectories for a given file extension
 
 import os
 import sys
@@ -9,16 +9,20 @@ import datetime
 import shutil
 
 # Set up command line arguments
-parser = argparse.ArgumentParser(description='Search files in a directory and subdirectories for a given file extension')
+parser = argparse.ArgumentParser(
+    description='Search files in a directory and subdirectories for a given file extension')
 
-parser.add_argument('-d', '--directory', help='Directory to search', required=False)
-parser.add_argument('-e', '--extension', help='File extension to search for', required=False)
+parser.add_argument('-d', '--directory',
+                    help='Directory to search', required=False)
+parser.add_argument('-e', '--extension',
+                    help='File extension to search for', required=False)
 
 args = parser.parse_args()
 
 # Set up variables
-directory = "E:\Photos\whatsapp-images"
-extension = ".JPG"
+
+directory = "E:\Photos\whatsapp-images" # Existing location where the files are stored
+extension = ".JPG"  # File extension to search for
 file_list = []
 
 # Check if directory exists
@@ -30,12 +34,12 @@ if not os.path.exists(directory):
 if not os.path.isdir(directory):
     print('Path is not a directory')
     sys.exit()
-    
+
 # Check if extension is valid
 if not extension.startswith('.'):
     print('Extension must start with a period')
     sys.exit()
-    
+
 # Walk through directory and subdirectories
 for root, dirs, files in os.walk(directory):
     for file in files:
@@ -47,18 +51,18 @@ count = 0
 print('Files found:')
 for file in file_list:
     count += 1
-    #print(file)
+    # print(file)
 
 print('Total files found: ', count)
 
 # Create new directory
-new_directory = os.path.join(directory, 'new')
+new_directory = os.path.join(directory, 'new') # Replace new with the name of the new directory to which you want to copy the files
 if not os.path.exists(new_directory):
     os.makedirs(new_directory)
 print('New directory created: ', new_directory)
-    
+
 copied_count = 0
-#Copy files to the new directory
+# Copy files to the new directory
 for file in file_list:
     copied_count += 1
     shutil.copy(os.path.join(directory, file), new_directory)
